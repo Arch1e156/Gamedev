@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 
@@ -16,14 +15,43 @@ namespace Player
         [SerializeField] private float _jumpForce;
         [SerializeField] private bool _isJumping;
 
+        private AnimationType _currentAnimationType;
+        private Vector2 _movement;
+        [SerializeField] private Animator _animator;
+
+        [SerializeField] private bool _isAttacking;
+
         private Rigidbody2D _rigidbody;
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
+        private void Update()
+        {
+            UpdateAnimations();
+        }
+
+        private void UpdateAnimations()
+        {
+            PlayAnimation(AnimationType.Idle, true);
+            PlayAnimation(AnimationType.Walk, _movement.magnitude > 0);
+            PlayAnimation(AnimationType.Jump, _isJumping);
+            PlayAnimation(AnimationType.Attack, _isAttacking);
+        }
+
+        public void Attack()
+        {
+            _isAttacking = true;
+        }
+        private void AttackStop()
+        {
+            _isAttacking = false;
+        }
+
         public void MoveHorizontally(float direction)
         {
+            _movement.x = direction;
             SetDirection(direction);
             Vector2 velocity = _rigidbody.velocity;
             velocity.x = direction * _horizontalSpeed;
@@ -61,6 +89,30 @@ namespace Player
             _isJumping = true;
         }
 
+        private void PlayAnimation(AnimationType animationType, bool active)
+        {
+            if (!active)
+            {
+                if (_currentAnimationType == AnimationType.Idle || _currentAnimationType != animationType)
+                {
+                    return;
+                }
+                _currentAnimationType = AnimationType.Idle;
+                PlayAnimation(_currentAnimationType);
+                return;
+            }
+            if (_currentAnimationType > animationType)
+            {
+                return;
+            }
+            _currentAnimationType = animationType;
+            PlayAnimation(_currentAnimationType);
+        }
+        private void PlayAnimation(AnimationType animationType)
+        {
+            _animator.SetInteger(nameof(AnimationType), (int)animationType);
+        }
     }
+
 
 }
