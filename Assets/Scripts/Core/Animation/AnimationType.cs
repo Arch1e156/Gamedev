@@ -1,4 +1,3 @@
-
 namespace Player 
 {
     public enum AnimationType 
@@ -7,9 +6,6 @@ namespace Player
         Walk = 1,
         Jump = 2,
         Attack = 3,
-        
-
-
     }
 
 }

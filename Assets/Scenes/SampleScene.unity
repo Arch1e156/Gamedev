@@ -258,8 +258,9 @@ GameObject:
   - component: {fileID: 160390503}
   - component: {fileID: 160390506}
   - component: {fileID: 160390505}
-  - component: {fileID: 160390508}
   - component: {fileID: 160390509}
+  - component: {fileID: 160390511}
+  - component: {fileID: 160390510}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -371,24 +372,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.047261, y: -0.958902}
   m_Size: {x: 1.7582111, y: 2.57505}
   m_Direction: 0
---- !u!114 &160390508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160390502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d99e02daffd138046941450191bc1117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _horizontalSpeed: 15
-  _faceRight: 1
-  _jumpForce: 600
-  _isJumping: 0
-  _animator: {fileID: 160390509}
-  _isAttacking: 0
 --- !u!95 &160390509
 Animator:
   serializedVersion: 5
@@ -409,6 +392,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &160390510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160390502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8992dff704ed0646bbdd09285ad5c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isJumping: 0
+--- !u!114 &160390511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160390502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2cf455bfe13954f97f03194ca97b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _directionalMovementData:
+    <HorizontalSpeed>k__BackingField: 20
+    <FaceLeft>k__BackingField: 0
+  _jumperData:
+    <JumpForce>k__BackingField: 700
+  _jumpPointController: {fileID: 160390510}
+  _isJumping: 0
+  _isAttacking: 0
+  _animator: {fileID: 160390509}
 --- !u!1 &225397344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,17 +1646,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1384697071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c359aca5a23ec4043a4202214442ca02, type: 3}
+  m_Script: {fileID: 11500000, guid: 8de544dab794ec0448f01ee31f6bf4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _layers:
-  - <Transform>k__BackingField: {fileID: 244674057}
-    <Speed>k__BackingField: 1
-  - <Transform>k__BackingField: {fileID: 1123461570}
-    <Speed>k__BackingField: 0.5
   - <Transform>k__BackingField: {fileID: 836872343}
+    <Speed>k__BackingField: 0.1
+  - <Transform>k__BackingField: {fileID: 1123461570}
+    <Speed>k__BackingField: 0.2
+  - <Transform>k__BackingField: {fileID: 244674057}
     <Speed>k__BackingField: 0.15
-  _target: {fileID: 160390504}
+  _target: {fileID: 519420032}
 --- !u!1 &1395171555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,7 +1666,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1395171557}
-  - component: {fileID: 1395171556}
+  - component: {fileID: 1395171558}
   m_Layer: 0
   m_Name: GameInitializer
   m_TagString: Untagged
@@ -1657,20 +1674,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1395171556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395171555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7465f84b6a72e4487d3619a70298a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerEntity: {fileID: 160390508}
-  _gameUiInputView: {fileID: 1733734411}
 --- !u!4 &1395171557
 Transform:
   m_ObjectHideFlags: 0
@@ -1686,6 +1689,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1395171558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395171555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7e468528b62b3468caa2ddd435effc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerEntity: {fileID: 160390511}
+  _gameUiInputView: {fileID: 1733734411}
 --- !u!1 &1473703413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,7 +2125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1733734406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a3f8662a1eea2541931e976149d2296, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a87c6692bafde6418f422b86832151c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _joystick: {fileID: 794313033}
